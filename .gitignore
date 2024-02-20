@@ -6,11 +6,6 @@ npm-debug.log
 yarn-error.log
 yarn.lock
 
-# Arquivos de compilação TypeScript
-*.js
-*.js.map
-*.d.ts
-
 # Arquivos de dependências
 .pnp.js
 .pnp.cjs
