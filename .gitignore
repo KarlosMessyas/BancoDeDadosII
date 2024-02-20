@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+npm-debug.log
+
+# Yarn
+yarn-error.log
+yarn.lock
+
+# Arquivos de compilação TypeScript
+*.js
+*.js.map
+*.d.ts
+
+# Arquivos de dependências
+.pnp.js
+.pnp.cjs
+
+# Cache do npm
+.npm/
+
+# Diretório de cobertura
+coverage/
