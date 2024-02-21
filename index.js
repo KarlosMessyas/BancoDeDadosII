@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize('api', 'postgres', 'postgres', {
     host: 'localhost',
@@ -15,3 +15,48 @@ conectar = async () => {
 }
 
 conectar();
+
+const Usuario = sequelize.define('Usuario', {
+    // Model attributes are defined here
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        // allowNull defaults to true
+    },
+    nascimento: {
+        type: DataTypes.DATE
+    }
+    
+}, {
+    // Other model options go here
+});
+
+async function sincronizar() {
+    await Usuario.sync();
+    console.log("Sincronizado");
+}
+
+sincronizar();
+
+async function criarUsuario(usuario) {
+    await Usuario.create(usuario);
+    console.log("Usuário criado");
+}
+
+criarUsuario({
+    nome: "Karlos",
+    email: "joao@gmail.com",
+    nascimento: "2000-01-01"
+})
+
+// Find all users
+async function listarUsuarios() {
+    const usuarios = await Usuario.findAll();
+    console.log(JSON.stringify(usuarios));
+}
+
+listarUsuarios();
