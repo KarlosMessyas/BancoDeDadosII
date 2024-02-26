@@ -1,44 +1,57 @@
-const Usuario = require('./model/Usuario');
+const express = require('express')
+const app = express()
+const port = 3000
 
-async function criarUsuario(usuario) {
-    await Usuario.create(usuario);
-    console.log("Usuário criado");
-}
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
-// criarUsuario({
-//     nome: "Karlos",
-//     email: "joao@gmail.com",
-//     nascimento: "2000-01-01"
-// })
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 
-// Find all users
-async function listarUsuarios() {
-    const usuarios = await Usuario.findAll();
-    console.log(JSON.stringify(usuarios));
-}
 
-listarUsuarios();
+// const Usuario = require('./model/Usuario');
 
-async function buscarUsuario(email){
-    const usuario = await Usuario.findByPk(email);
-    console.log(JSON.stringify(usuario));
-}
+// async function criarUsuario(usuario) {
+//     await Usuario.create(usuario);
+//     console.log("Usuário criado");
+// }
 
-// buscarUsuario("joao@gmail.com");
+// // criarUsuario({
+// //     nome: "Karlos",
+// //     email: "joao@gmail.com",
+// //     nascimento: "2000-01-01"
+// // })
 
-async function atualizarUsuario(email, nome){
-    const usuario = await Usuario.findByPk(email);
-    usuario.nome = nome;
-    await usuario.save();
-    console.log("Usuário atualizado");
-}
+// // Find all users
+// async function listarUsuarios() {
+//     const usuarios = await Usuario.findAll();
+//     console.log(JSON.stringify(usuarios));
+// }
 
-// atualizarUsuario("joao@gmail.com", "João da Silva");
+// listarUsuarios();
 
-async function deletarUsuario(email){
-    const usuario = await Usuario.findByPk(email);
-    await usuario.destroy(usuario);
-    console.log("Usuário deletado");
-}
+// async function buscarUsuario(email){
+//     const usuario = await Usuario.findByPk(email);
+//     console.log(JSON.stringify(usuario));
+// }
 
-// deletarUsuario("joao@gmail.com");
+// // buscarUsuario("karlos@gmail.com");
+
+// async function atualizarUsuario(email, nome){
+//     const usuario = await Usuario.findByPk(email);
+//     usuario.nome = nome;
+//     await usuario.save();
+//     console.log("Usuário atualizado");
+// }
+
+// // atualizarUsuario("joao@gmail.com", "João da Silva");
+
+// async function deletarUsuario(email){
+//     const usuario = await Usuario.findByPk(email);
+//     await usuario.destroy(usuario);
+//     console.log("Usuário deletado");
+// }
+
+// // deletarUsuario("joao@gmail.com");
