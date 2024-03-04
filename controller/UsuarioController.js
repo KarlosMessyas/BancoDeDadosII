@@ -17,7 +17,7 @@ const buscarUsuario = async (req, res) => {
 }
 
 const criarUsuario = async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     try {
         const usuario = await Usuario.create(req.body);
         res.status(201).json(usuario);
