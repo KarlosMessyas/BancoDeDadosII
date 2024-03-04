@@ -16,7 +16,8 @@ const buscarUsuario = async (req, res) => {
     res.json(usuario);
 }
 
-const adicionarUsuario = async (req, res) => {
+const criarUsuario = async (req, res) => {
+    // console.log(req.body);
     try {
         const usuario = await Usuario.create(req.body);
         res.status(201).json(usuario);
@@ -25,7 +26,6 @@ const adicionarUsuario = async (req, res) => {
         res.status(400).json({ erro: exception.message });
         return;
     }
-
 }
 
 const removerUsuario = async (req, res) => {
@@ -45,7 +45,20 @@ const removerUsuario = async (req, res) => {
     }
 }
 
-module.exports = { listarUsuarios, buscarUsuario, adicionarUsuario, removerUsuario };
+const atualizarUsuario = async (req, res) => {
+    const usuario = await Usuario.findByPk(req.params.email);
+    if (!usuario) {
+        res.status(404).json({ erro: "Usuário não encontrado" });
+        return;
+    }
+    else {
+        Usuario.update(req.body);
+        res.status(200).json({ message: 'Usuário atualizado com sucesso.' });
+        return;
+    }
+}
+
+module.exports = { listarUsuarios, buscarUsuario, criarUsuario, removerUsuario, atualizarUsuario };
 
 // async function criarUsuario(usuario) {
 //     await Usuario.create(usuario);
