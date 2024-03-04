@@ -28,7 +28,24 @@ const adicionarUsuario = async (req, res) => {
 
 }
 
-module.exports = { listarUsuarios, buscarUsuario, adicionarUsuario };
+const removerUsuario = async (req, res) => {
+    try {
+        const usuario = await Usuario.findByPk(req.params.email);
+        if (!usuario) {
+            res.status(404).json({ erro: "Usuário não encontrado" });
+            return;
+        }
+        await Usuario.destroy({ where: { email: req.params.email } });
+        res.status(201).json(usuario);
+        return;
+    }
+    catch (exception) {
+        console.error(exception);
+        res.status(500).json({ erro: "Erro interno do servidor" });
+    }
+}
+
+module.exports = { listarUsuarios, buscarUsuario, adicionarUsuario, removerUsuario };
 
 // async function criarUsuario(usuario) {
 //     await Usuario.create(usuario);
