@@ -15,3 +15,6 @@ yarn.lock
 
 # Diretório de cobertura
 coverage/
+
+# Configurações 
+.env

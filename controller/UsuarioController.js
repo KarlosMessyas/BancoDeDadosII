@@ -2,12 +2,14 @@ const Usuario = require('../model/Usuario');
 
 const listarUsuarios = async (req, res) => {
     const usuarios = await Usuario.findAll();
+    if (usuarios.length == 0) {
+        res.json({ erro: "Adicione algum usuário" });
+    }
     res.json(usuarios);
 };
 
 const buscarUsuario = async (req, res) => {
     const usuario = await Usuario.findByPk(req.params.email);
-
     if (usuario === null) {
         res.status(404).json({ erro: "Usuário não encontrado" });
         return;
@@ -16,14 +18,30 @@ const buscarUsuario = async (req, res) => {
     res.json(usuario);
 }
 
+async function verificaUsuario(email) {
+    const usuarios = await Usuario.findAll();
+    for (let usuario of usuarios) {
+        if (usuario.email == email) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 const criarUsuario = async (req, res) => {
-    console.log(req.body);
     try {
-        const usuario = await Usuario.create(req.body);
-        res.status(201).json(usuario);
-        return;
+        if (verificaUsuario(req.body.email) == 1) {
+            res.status(400).json({ erro: "Usuário existente" });
+            return;
+        }
+        else {
+            const usuario = await Usuario.create(req.body);
+            res.status(201).json(usuario);
+            return;
+        }
+
     } catch (exception) {
-        res.status(400).json({ erro: exception.message });
+        res.status(400).json({ erro: "Erro" });
         return;
     }
 }
@@ -52,7 +70,7 @@ const atualizarUsuario = async (req, res) => {
         return;
     }
     else {
-        Usuario.update(req.body);
+        usuario.update(req.body);
         res.status(200).json({ message: 'Usuário atualizado com sucesso.' });
         return;
     }

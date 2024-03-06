@@ -1,5 +1,5 @@
 const sequelize = require('../database/sequelize');
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 const Usuario = sequelize.define('Usuario', {
     // Model attributes are defined here
@@ -9,13 +9,14 @@ const Usuario = sequelize.define('Usuario', {
     },
     email: {
         type: DataTypes.STRING,
-        primaryKey: true,
+        primaryKey: true
         // allowNull defaults to true
     },
     nascimento: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: false
     }
-    
+
 }, {
     // Other model options go here
 });
