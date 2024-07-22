@@ -1,4 +1,5 @@
 const Usuario = require('../model/Usuario');
+const { patch } = require('../routers/UsuarioRouter');
 
 const listarUsuarios = async (req, res) => {
     const usuarios = await Usuario.findAll();
